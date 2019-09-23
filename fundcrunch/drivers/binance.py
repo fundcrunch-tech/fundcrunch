@@ -98,46 +98,6 @@ class BinanceDriver(Process, ExchangeDriver):
                         ccxt_message['auth'] = self.cxxt_conf['auth']['apiKey']
                     self.general_queue.put({'source':'ccxt', 'msg': ccxt_message})
 
-    
-
-    def db_write_queue_th(self):
-        
-        account_map = {'XZMqUtXB7AHYBof7uyIIpKI1gn8zTV1egCIQxFEbxEZnIltef00eBTcpaIq7ULxK': 1,
-                       'BG9ezDLBFJckUx0zHUBapfIG6zGxqGF1W93hJ7dpWigisBymR9h37Emqc5DylyaJ': 2}
-
-        base_host = 'https://django.tiona.io/api/exchang_account_trades/'
-        auth = ('tiona', 'Qwe_12345')
-        headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
-
-        while True:
-            msg = self.dq_queue.get()
-            
-            if 'e' in msg.keys() and 'auth' in msg.keys():
-                if msg['e']=='executionReport':
-
-                    d = {
-                        "timestamp": int(time.time()),
-                        "datetime": str(datetime.datetime.now()),
-                        "symbol": msg['symbol'],
-                        "type": msg['o'],
-                        "side": msg['S'],
-                        "price": msg['p'],
-                        "amount": msg['q'],
-                        "status": msg['X'],
-                        "order": msg['c'],
-                        "info": msg,
-                        "exchange_account": account_map[msg['auth']],                        
-                    }
-
-                    while True:
-                        try:
-                            ret = requests.post(base_host, json=d, auth=auth, headers=headers)    
-                        except requests.RequestException as e:
-                            print("DB write", e)
-                            time.sleep(3)
-                        else:
-                            break
-
     def run(self):
         try:
             is_first_loop = True
@@ -212,16 +172,12 @@ class BinanceDriver(Process, ExchangeDriver):
 
             wsth = threading.Thread(target=self.ws_queue_th)
             ccxtth =threading.Thread(target=self.ccxt_queue_th)
-            #dbwriteth =threading.Thread(target=self.db_write_queue_th)
 
             wsth.start()
             ccxtth.start()
-            #dbwriteth.start()
 
             self.chTh.append(wsth)
             self.chTh.append(ccxtth)
-            #self.chTh.append(dbwriteth)
-
         
             while True:
 
