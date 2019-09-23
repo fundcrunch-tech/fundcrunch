@@ -1,7 +1,7 @@
 # Fundcrunch library
 
-* connect directly to various exchanges and bind they stream into local socket endpoint
-* connect to Fundcrunch.Tech socket and rest endpoints
+* connect directly to various exchanges and bind they stream into single local socket endpoint
+* connector to Fundcrunch.Tech data streaming socket and REST endpoints
 
 ## Instalation
 
