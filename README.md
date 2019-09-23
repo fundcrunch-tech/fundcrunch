@@ -3,8 +3,8 @@
 ## Instalation
 
 ```bash
-$ git clone git@github.com:fundcrunch-tech/fundcrunch.git
-$ cd fundcrunch
+$ git clone git@github.com:fundcrunch-tech/fundcrunch_py.git
+$ cd fundcrunch_py
 ```
 
 
