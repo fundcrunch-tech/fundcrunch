@@ -3,7 +3,7 @@
 * connect directly to various exchanges and bind they stream into single local socket endpoint
 * connector to Fundcrunch.Tech data streaming socket and REST endpoints
 
-## Instalation
+## Installation
 
 ```bash
 $ git clone git@github.com:fundcrunch-tech/fundcrunch_py.git
