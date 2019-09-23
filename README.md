@@ -18,7 +18,7 @@ $ python setup.py install
 ```
 
 ```bash
-$ cd example
+$ cd examples
 $ python feeder.py
 ```
 
