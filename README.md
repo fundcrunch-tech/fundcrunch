@@ -17,4 +17,8 @@ $ source .venv/bin/activate
 $ python setup.py install
 ```
 
+```bash
+$ cd example
+$ python feeder.py
+```
 
