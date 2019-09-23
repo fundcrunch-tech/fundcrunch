@@ -11,7 +11,7 @@ $ cd fundcrunch_py
 ```bash
 $ python3.7 -m venv .venv
 $ source .venv/bin/activate
-$ python setup.py install .
+$ python setup.py install
 ```
 
 
