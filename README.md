@@ -6,6 +6,12 @@
 ## Installation
 
 ```bash
+$ pip install fundcrunch
+```
+
+## Install from source
+
+```bash
 $ git clone git@github.com:fundcrunch-tech/fundcrunch_py.git
 $ cd fundcrunch_py
 ```
@@ -22,3 +28,29 @@ $ cd examples
 $ python feeder.py
 ```
 
+## Usage
+
+```python
+from fundcrunch import Feeder
+
+
+feder_conf = { 'port': [9001, 8010, 7001],
+               'addr': '0.0.0.0',
+               'exchanges': [{'name': 'binance',
+                              'pairs': ['BTC/USDT'],
+                              'mode': ['order_book', 'trades', 'ohlc']}]
+             }
+
+subscribe = ['ohlc-binance-BTC_USDT',
+             'ob-binance-BTC_USDT',
+             'trade_binance-BTC_USDT',]
+             
+feeder = Feeder(config=feder_conf, subscribe=subscribe)
+feeder.start()
+
+try:
+    while True:
+        rcv = feeder.output.get()
+        print(rcv)
+
+```
