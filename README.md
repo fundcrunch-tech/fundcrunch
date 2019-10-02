@@ -5,6 +5,7 @@ The library is built from a core of cross-exchange cryptocurrency assets managem
 * connect directly to various exchanges
 * connector to Fundcrunch.Tech data streaming socket and REST endpoints
 
+it build on Multiprocessing and Threading and has mudalar structure with streaming over ZeroMQ libaray.
 
 ## Installation
 
