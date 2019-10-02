@@ -12,8 +12,8 @@ import urllib.request
 import operator
 import math, random
 
-from drivers.exchdriver import ExchangeDriver
-from drivers.ccxtdriver import CcxtDriver
+from .exchdriver import ExchangeDriver
+from .ccxtdriver import CcxtDriver
 
 wss = 'wss://stream.binance.com:9443'
 depth_url = 'https://www.binance.com/api/v1/depth?' #+symbol=BNBBTC&limit=1000

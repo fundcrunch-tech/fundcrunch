@@ -12,8 +12,8 @@ import urllib.request, requests
 import operator
 import math, hashlib
 
-from drivers.exchdriver import ExchangeDriver
-from drivers.ccxtdriver import CcxtDriver
+from .exchdriver import ExchangeDriver
+from .ccxtdriver import CcxtDriver
 
 wss = 'wss://stream.binance.com:9443'
 api_base = "https://api.binance.com"

@@ -10,8 +10,8 @@ import itertools
 import urllib.request
 
 
-from drivers.exchdriver import ExchangeDriver
-from drivers.ccxtdriver import CcxtDriver
+from .exchdriver import ExchangeDriver
+from .ccxtdriver import CcxtDriver
 from .binancews import BinanceWebSocketStreams
 from .binancews_private import BinanceWebSocketPrivateStreams
 

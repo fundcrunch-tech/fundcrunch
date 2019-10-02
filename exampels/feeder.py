@@ -1,8 +1,7 @@
 from multiprocessing import Process, Queue
 from threading import Thread
 
-from fundcrunch.drivers import *
-from fundcrunch.utils import SocketEndppoint, EndpointsBinder
+from fundcrunch import BinanceDriver, SocketEndppoint, EndpointsBinder
 
 
 driver_output_queue = Queue()
