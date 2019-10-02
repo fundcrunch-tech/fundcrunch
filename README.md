@@ -1,6 +1,6 @@
 # Fundcrunch library
 
-The library is built from a core of cross-exchange cryptocurrency assets management system with runs private fonds. General purpose of public code is to simplify efforts in the trading and investment field.
+The library is built from a core of cross-exchange cryptocurrency assets management system for runing private fonds. It amid to reduce efforts in trading and investment managemnt.
 
 * connect directly to various exchanges
 * connector to Fundcrunch.Tech data streaming socket and REST endpoints
