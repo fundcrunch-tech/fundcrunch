@@ -1,7 +1,10 @@
 # Fundcrunch library
 
-* connect directly to various exchanges and bind they stream into single local socket endpoint
+The library is built from a core of cross-exchange cryptocurrency assets management system with runs private fonds. General purpose of public code is to simplify efforts in the trading and investment field.
+
+* connect directly to various exchanges
 * connector to Fundcrunch.Tech data streaming socket and REST endpoints
+
 
 ## Installation
 
