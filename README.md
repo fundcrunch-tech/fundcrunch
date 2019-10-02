@@ -48,9 +48,8 @@ subscribe = ['ohlc-binance-BTC_USDT',
 feeder = Feeder(config=feder_conf, subscribe=subscribe)
 feeder.start()
 
-try:
-    while True:
-        rcv = feeder.output.get()
-        print(rcv)
+while True:
+  rcv = feeder.output.get()
+  print(rcv)
 
 ```
