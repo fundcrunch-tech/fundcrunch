@@ -17,6 +17,7 @@ subscribe = ['ohlc-binance-BTC_USDT',
              #'ob-binance-BTC_USDT',
              #'trade_binance-BTC_USDT,
              ]
+             
 feeder = Feeder(config=feder_conf, subscribe=subscribe)
 feeder.start()
 
@@ -25,21 +26,8 @@ try:
         rcv = feeder.output.get()
         print(rcv)
 
-
-
 except KeyboardInterrupt as e:
     print('[feeder]','KeyboardInterrupt')
-
-
-
-# import os
-# import signal
-# if public_drv:
-#     os.kill(public_drv.pid, signal.SIGTERM)
-#     public_drv.join()
-
-# if endpoint.is_alive():
-#     endpoint.join()
 
 if feeder.is_alive():
     feeder.join()
