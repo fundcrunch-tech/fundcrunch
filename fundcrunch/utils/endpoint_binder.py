@@ -45,8 +45,7 @@ class Feeder(threading.Thread):
         subscriber.connect(f"tcp://{self.config['addr']}:{self.config['port'][2]}")
         for i in self.subheaders:
             subscriber.setsockopt(zmq.SUBSCRIBE, f"{i}@".encode())
-
-        
+           
         try:
             while True:
                 try:

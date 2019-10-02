@@ -235,12 +235,6 @@ class BinanceDriver(Process, ExchangeDriver):
                     logging.info(message['msg'])
                 else:
                     self.sender.send_json(message['msg'])
-                    
-                    
-                    
-                
-
-            
 
                 #==========================
                 # Write all trades to DB

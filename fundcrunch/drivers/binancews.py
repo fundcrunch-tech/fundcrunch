@@ -43,6 +43,7 @@ class SnapshotAgent(threading.Thread):
 
 class BinanceWebSocketStreams(threading.Thread):
     def __init__(self, loop, config):
+
         self.config = config
         self.pname = '[binance_ws]'
 
@@ -344,7 +345,6 @@ class BinanceWebSocketStreams(threading.Thread):
         
 
         streams = streams[:-1]
-
         
         # for 24 hours disconnect
         while True:
@@ -406,7 +406,6 @@ class BinanceWebSocketStreams(threading.Thread):
                         to_send = self.build_trade_mesage(jd)
                     else:
                         print(jd)
-
 
                     if to_send:
                         self.config['web_socket_streams_out'].put( to_send )

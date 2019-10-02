@@ -45,7 +45,6 @@ class PushPull(Process):
 
                 else:
                     s['feeder_nonce'] = nonce
-
                     if s['message'] in ['ob', 'trade', 'ohlc']:
                         sub_str = s['message'] + '-' + s['exchange'] + '-' + s['symbol'].replace('/','_') + '@'
                     elif s['message'] in ['balance', 'order_update']:
