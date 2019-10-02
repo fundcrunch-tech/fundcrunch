@@ -1,32 +1,28 @@
 from multiprocessing import Process, Queue
 from threading import Thread
 
-from fundcrunch import BinanceDriver, SocketEndppoint, EndpointsBinder
+from fundcrunch import Feeder
 
 
 driver_output_queue = Queue()
 
-driver_config = {"exchange": 'binance',
-                 "pairs":[],
-                 "mode":['order_book', 'trades', 'ohlc'],
-                 "output": driver_output_queue
-                }
-        
-public_drv = BinanceDriver( conf=driver_config, addr='0.0.0.0', port=9001 )
-public_drv.start()
+feder_conf = { 'port': [9001, 8010, 7001],
+               'addr': '0.0.0.0',
+               'exchanges': [{'name': 'binance',
+                              'pairs': ['BTC/USDT'],
+                              'mode': ['order_book', 'trades', 'ohlc']}]
+             }
 
-endpoint = SocketEndppoint(pull_pub=[{'pull':'0.0.0.0:9001', 'pub':'0.0.0.0:8010'}], endpoint='0.0.0.0:7001')
-endpoint.start()
-
-
-binder = EndpointsBinder(sockets=[{'addres':'0.0.0.0:7001', 'subscribe':['ob-binance-BTC_USDT'],}],
-                         queues=[driver_output_queue]
-                        )
-binder.start()
+subscribe = ['ohlc-binance-BTC_USDT',
+             #'ob-binance-BTC_USDT',
+             #'trade_binance-BTC_USDT,
+             ]
+feeder = Feeder(config=feder_conf, subscribe=subscribe)
+feeder.start()
 
 try:
     while True:
-        rcv = binder.output.get()
+        rcv = feeder.output.get()
         print(rcv)
 
 
@@ -36,17 +32,17 @@ except KeyboardInterrupt as e:
 
 
 
-import os
-import signal
-if public_drv:
-    os.kill(public_drv.pid, signal.SIGTERM)
-    public_drv.join()
+# import os
+# import signal
+# if public_drv:
+#     os.kill(public_drv.pid, signal.SIGTERM)
+#     public_drv.join()
 
-if endpoint.is_alive():
-    endpoint.join()
+# if endpoint.is_alive():
+#     endpoint.join()
 
-if binder.is_alive():
-    binder.join()
+if feeder.is_alive():
+    feeder.join()
 
 
 

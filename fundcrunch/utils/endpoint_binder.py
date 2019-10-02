@@ -3,27 +3,47 @@ import time
 import sys, json
 from random import randrange, randint
 import random
-import queue, threading
+import queue, threading, multiprocessing
 import binascii
 import gzip
 import pprint
 
+from .. import drivers
+from .endpoint import SocketEndppoint
 
-class EndpointsBinder(threading.Thread):
+class Feeder(threading.Thread):
     
     output = queue.Queue()
 
-    def __init__(self, sockets, queues):
+    def __init__(self, config, subscribe):
         threading.Thread.__init__(self)
-        self.sockets = sockets
-        self.qs = queue
+        self.config = config
+        self.subheaders = subscribe
+        self.childs = []
+
+        for i in config['exchanges']:
+            driver_config = {"exchange": i['name'],
+                    "pairs":i['pairs'],
+                    "mode": i["mode"],
+                    "output": multiprocessing.Queue()
+                    }
+            
+            public_drv = drivers.BinanceDriver( conf=driver_config, addr=config['addr'], port=config['port'][0] )
+            public_drv.start()
+            self.childs.append(public_drv)
+        
+        self.endpoint = SocketEndppoint(pull_pub=[ {'pull':f"{config['addr']}:{config['port'][0]}", 
+                                               'pub':f"0.0.0.0:{config['port'][1]}"} ], 
+                                   endpoint=f"0.0.0.0:{config['port'][2]}")
+        self.endpoint.start()
+        self.childs.append(self.endpoint)
         
     
-    def socket_listener(self, addr, sub_headers):
+    def socket_listener(self):
         context = zmq.Context()
         subscriber = context.socket(zmq.SUB)
-        subscriber.connect(f"tcp://{addr}")
-        for i in sub_headers:
+        subscriber.connect(f"tcp://{self.config['addr']}:{self.config['port'][2]}")
+        for i in self.subheaders:
             subscriber.setsockopt(zmq.SUBSCRIBE, f"{i}@".encode())
 
         
@@ -37,7 +57,6 @@ class EndpointsBinder(threading.Thread):
                     # topic, payload = rcv.split(b'@',1)
                     # payload = gzip.decompress(payload)
                     # payload = json.loads(payload)
-                    print(rcv)
                     self.output.put(rcv)
         except KeyboardInterrupt as e:
             pass
@@ -56,15 +75,17 @@ class EndpointsBinder(threading.Thread):
     def run(self):
         thread_id = []
 
-        for i in self.sockets:
-            th = threading.Thread(target=self.socket_listener, args=(i['addres'], i['subscribe']))
-            th.start()
-            thread_id.append(th)
-        
+        th = threading.Thread(target=self.socket_listener)
+        th.start()
+        thread_id.append(th)
+    
         try:
-
             for i in thread_id:
                 i.join()
+
+            for i in self.childs:
+                i.join()
+
         except KeyboardInterrupt as e:
             pass
 

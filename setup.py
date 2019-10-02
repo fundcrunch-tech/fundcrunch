@@ -6,10 +6,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(name='fundcrunch',
       version='0.1',
-      description='The funniest joke in the world',
-      url='http://github.com/storborg/funniest',
+      description='The Fundcrunch.Tech library for market data processing in real time or on history.',
+      url='https://github.com/fundcrunch-tech/fundcrunch_py',
       author='Sergey Bryukov',
-      author_email='flyingcircus@example.com',
+      author_email='hello@fundcrunch.tech',
       long_description=long_description,
       long_description_content_type="text/markdown",
       license='MIT',
