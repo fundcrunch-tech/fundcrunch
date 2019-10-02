@@ -43,7 +43,7 @@ feeder_conf = { 'port': [9001, 8010, 7001],
 
 subscribe = ['ohlc-binance-BTC_USDT',
              'ob-binance-BTC_USDT',
-             'trade_binance-BTC_USDT',]
+             'trade-binance-BTC_USDT',]
              
 feeder = Feeder(config=feder_conf, subscribe=subscribe)
 feeder.start()
