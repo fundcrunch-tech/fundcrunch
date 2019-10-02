@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 
 setuptools.setup(name='fundcrunch',
-      version='0.1',
+      version='0.1.1',
       description='The Fundcrunch.Tech library for market data processing in real time or on history.',
       url='https://github.com/fundcrunch-tech/fundcrunch_py',
       author='Sergey Bryukov',
