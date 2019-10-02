@@ -34,7 +34,7 @@ $ python feeder.py
 from fundcrunch import Feeder
 
 
-feder_conf = { 'port': [9001, 8010, 7001],
+feeder_conf = { 'port': [9001, 8010, 7001],
                'addr': '0.0.0.0',
                'exchanges': [{'name': 'binance',
                               'pairs': ['BTC/USDT'],
