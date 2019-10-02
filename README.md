@@ -1,6 +1,6 @@
 # Fundcrunch library
 
-The library is built from a core of cross-exchange cryptocurrency assets management system for runing private fonds. It amid to reduce efforts in trading and investment managemnt.
+The library is built from a core of cross-exchange cryptocurrency assets management system for running private funds. It amid to reduce efforts in trading and investment management.
 
 * connect directly to various exchanges
 * connector to Fundcrunch.Tech data streaming socket and REST endpoints
