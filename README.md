@@ -54,6 +54,7 @@ feeder.start()
 
 while True:
   rcv = feeder.output.get()
-  print(rcv)
+  topic, payload = rcv.split(b'@',1)
+  print(topic, json.loads(payload).keys())
 
 ```
