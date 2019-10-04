@@ -35,6 +35,7 @@ $ python feeder.py
 ## Usage
 
 ```python
+import json
 from fundcrunch import Feeder
 
 
