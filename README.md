@@ -49,7 +49,7 @@ subscribe = ['ohlc-binance-BTC_USDT',
              'ob-binance-BTC_USDT',
              'trade-binance-BTC_USDT',]
              
-feeder = Feeder(config=feder_conf, subscribe=subscribe)
+feeder = Feeder(config=feeder_conf, subscribe=subscribe)
 feeder.start()
 
 while True:
