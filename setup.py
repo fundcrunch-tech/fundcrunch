@@ -15,7 +15,7 @@ setuptools.setup(name='fundcrunch',
       license='MIT',
       packages=setuptools.find_packages(),#['drivers'],
       install_requires=[
-          'requests', 'websockets', 'ccxt', 'pyzmq',
+          'requests', 'websockets', 'ccxt', 'pyzmq', 'pandas',
       ],
       classifiers=[
         "Programming Language :: Python :: 3",
