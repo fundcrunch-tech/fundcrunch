@@ -31,8 +31,8 @@ $ python feeder.py
 ## Streaming
 
 ```python
+import json
 from fundcrunch import Feeder
-
 
 feeder_conf = { 'port': [9001, 8010, 7001],
                'addr': '0.0.0.0',
@@ -43,14 +43,15 @@ feeder_conf = { 'port': [9001, 8010, 7001],
 
 subscribe = ['ohlc-binance-BTC_USDT',
              'ob-binance-BTC_USDT',
-             'trade_binance-BTC_USDT',]
+             'trade-binance-BTC_USDT',]
              
-feeder = Feeder(config=feder_conf, subscribe=subscribe)
+feeder = Feeder(config=feeder_conf, subscribe=subscribe)
 feeder.start()
 
 while True:
   rcv = feeder.output.get()
-  print(rcv)
+  topic, payload = rcv.split(b'@',1)
+  print(topic, json.loads(payload).keys())
 
 ```
 
