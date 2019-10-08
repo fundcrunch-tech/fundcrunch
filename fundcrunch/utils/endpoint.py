@@ -10,13 +10,13 @@ import pprint
 
 
     
-class PushPull(Process):
+class PushPub(Process):
 
-    def __init__(self, name, pull_address, push_address):
+    def __init__(self, name, pull_address, pub_address):
         Process.__init__(self)
         self.name = f"[{name}]"
         self.pull_address = f"tcp://{pull_address}"
-        self.push_address = f"tcp://{push_address}"
+        self.push_address = f"tcp://{pub_address}"
     
     def run(self):
 
@@ -69,16 +69,16 @@ class SocketEndppoint(Process):
     drv_pid = []
     pull_pub_pid = []
 
-    def __init__(self, pull_pub, endpoint):
+    def __init__(self, sources, endpoint):
         Process.__init__(self)
         self.name = "[SocketEndpoint]"
         self.endpoint = endpoint
-        self.pull_push = pull_pub
+        self.sources = sources
 
-        for i in pull_pub:
-            pp = PushPull('push_pull', i['pull'], i['pub'])
-            pp.start()
-            self.pull_pub_pid.append(pp)
+        # for i in pull_pub:
+        #     pp = PushPub('push_pull', i['pull'], i['pub'])
+        #     pp.start()
+        #     self.pull_pub_pid.append(pp)
 
             
     def __del__(self):
@@ -90,8 +90,8 @@ class SocketEndppoint(Process):
 
         xsub = context.socket(zmq.XSUB)
 
-        for i in self.pull_push:
-            sourceaddress = f"tcp://{i['pub']}"
+        for i in self.sources:
+            sourceaddress = f"tcp://{i}"
             xsub.connect(sourceaddress)
             print(self.name, '[XSUB]', sourceaddress)
         
