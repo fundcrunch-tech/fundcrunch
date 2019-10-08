@@ -9,7 +9,7 @@ import gzip
 import pprint
 
 from .. import drivers
-from .endpoint import SocketEndppoint
+from .endpoint import SocketEndppoint, PushPub
 
 class Feeder(threading.Thread):
     
@@ -32,9 +32,14 @@ class Feeder(threading.Thread):
             public_drv.start()
             self.childs.append(public_drv)
         
-        self.endpoint = SocketEndppoint(pull_pub=[ {'pull':f"{config['addr']}:{config['port'][0]}", 
-                                               'pub':f"0.0.0.0:{config['port'][1]}"} ], 
-                                   endpoint=f"0.0.0.0:{config['port'][2]}")
+        pull_pub = PushPub("drivers_pull_pub",
+                            pull_address= f"{config['addr']}:{config['port'][0]}",
+                            pub_address= f"0.0.0.0:{config['port'][1]}")
+        pull_pub.start()
+        self.childs.append(pull_pub)
+
+        self.endpoint = SocketEndppoint(sources=[ f"0.0.0.0:{config['port'][1]}" ], 
+                                        endpoint=f"0.0.0.0:{config['port'][2]}")
         self.endpoint.start()
         self.childs.append(self.endpoint)
         
