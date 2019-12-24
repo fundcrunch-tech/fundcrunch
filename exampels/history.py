@@ -1,4 +1,4 @@
-from fundcrunch.utils import History
+from fundcrunch import History
 
 exhanges = ['binance', 'bittrex']
 ohlc = ['1h', '1d']
