@@ -1,7 +1,11 @@
 # Fundcrunch library
 
-* connect directly to various exchanges and bind they stream into single local socket endpoint
+Is a market data streaming and history library built from a core of cross-exchange cryptocurrency assets management system. It amid to reduce efforts in trading and investment management.
+
+* connect directly to various exchanges
 * connector to Fundcrunch.Tech data streaming socket and REST endpoints
+
+it build on Multiprocessing and Threading and has mudalar structure with streaming over ZeroMQ libaray.
 
 ## Installation
 
